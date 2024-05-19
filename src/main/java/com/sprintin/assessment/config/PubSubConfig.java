@@ -1,17 +1,15 @@
 package com.sprintin.assessment.config;
 
-
 import com.google.cloud.spring.pubsub.core.PubSubTemplate;
 import com.sprintin.assessment.pubsub.AbstractBasePubSubConsumer;
+import java.util.Set;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
-
-import java.util.Set;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 @Slf4j
 @AllArgsConstructor
@@ -25,12 +23,12 @@ public class PubSubConfig {
 
     @EventListener(ApplicationReadyEvent.class)
     public void handleSubscriptions() {
-        final ExecutorService executorService = Executors.newFixedThreadPool(10);
+    final ExecutorService executorService = Executors.newFixedThreadPool(2);
         pubSubTemplate.getPubSubSubscriberTemplate().setAsyncPullExecutor(executorService);
         pubSubConsumers.forEach(this::subscribe);
     }
 
-    public void subscribe(final AbstractBasePubSubConsumer consumer) {
+  public void subscribe(final AbstractBasePubSubConsumer<?> consumer) {
         pubSubTemplate.subscribe(consumer.getSubscription(), consumer.consumer());
     }
 

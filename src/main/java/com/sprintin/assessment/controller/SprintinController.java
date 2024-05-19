@@ -19,6 +19,6 @@ public class SprintinController {
     void invokeSprintIn() {
 
         log.info("Inside controller");
-        fileReaderService.loginIntoGcpStorage();
+    fileReaderService.loginIntoGcpStorage("", "");
     }
 }

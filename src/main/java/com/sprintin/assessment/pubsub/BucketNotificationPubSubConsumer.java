@@ -36,7 +36,10 @@ public class BucketNotificationPubSubConsumer extends AbstractBasePubSubConsumer
     public void processMessage(final BucketNotification bucketNotification) {
 
         log.info(" Inside processMessage === test 1");
-        System.out.println(bucketNotification.getBucket());
-        System.out.println(bucketNotification.getName());
+    log.info(bucketNotification.getBucket());
+    log.info(bucketNotification.getName());
+
+    fileReaderService.loginIntoGcpStorage(
+        bucketNotification.getBucket(), bucketNotification.getName());
     }
 }

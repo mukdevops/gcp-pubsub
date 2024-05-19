@@ -7,9 +7,8 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
 public class SprintinApplication {
 
-
     public static void main(final String[] args) {
         SpringApplication.run(SprintinApplication.class, args);
     }
-
+    
 }

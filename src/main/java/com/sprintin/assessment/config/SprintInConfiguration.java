@@ -12,9 +12,4 @@ public class SprintInConfiguration {
     private String bucketName;
 
     private String subscriptionName;
-
-//    public void setBucketName(final String bucketName) {
-//        this.bucketName = bucketName;
-//    }
-
 }
