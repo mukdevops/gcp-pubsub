@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties(prefix = "sprintin")
 public class SprintInConfiguration {
 
-    private String bucketName;
+  private String bucketName;
 
-    private String subscriptionName;
+  private String subscriptionName;
 }

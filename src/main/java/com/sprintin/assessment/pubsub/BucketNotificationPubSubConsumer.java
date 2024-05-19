@@ -9,37 +9,40 @@ import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
-public class BucketNotificationPubSubConsumer extends AbstractBasePubSubConsumer<BucketNotification> {
+public class BucketNotificationPubSubConsumer
+    extends AbstractBasePubSubConsumer<BucketNotification> {
 
-    private final FileReaderService fileReaderService;
+  private final FileReaderService fileReaderService;
 
-    private final SprintInConfiguration sprintInConfiguration;
+  private final SprintInConfiguration sprintInConfiguration;
 
-    public BucketNotificationPubSubConsumer(final ObjectMapper objectMapper, final FileReaderService fileReaderService,
-                                            final SprintInConfiguration sprintInConfiguration) {
-        super(objectMapper);
-        this.fileReaderService = fileReaderService;
-        this.sprintInConfiguration = sprintInConfiguration;
-    }
+  public BucketNotificationPubSubConsumer(
+      final ObjectMapper objectMapper,
+      final FileReaderService fileReaderService,
+      final SprintInConfiguration sprintInConfiguration) {
+    super(objectMapper);
+    this.fileReaderService = fileReaderService;
+    this.sprintInConfiguration = sprintInConfiguration;
+  }
 
-    @Override
-    public Class<BucketNotification> getMessageClass() {
-        return BucketNotification.class;
-    }
+  @Override
+  public Class<BucketNotification> getMessageClass() {
+    return BucketNotification.class;
+  }
 
-    @Override
-    public String getSubscription() {
-        return sprintInConfiguration.getSubscriptionName();
-    }
+  @Override
+  public String getSubscription() {
+    return sprintInConfiguration.getSubscriptionName();
+  }
 
-    @Override
-    public void processMessage(final BucketNotification bucketNotification) {
+  @Override
+  public void processMessage(final BucketNotification bucketNotification) {
 
-        log.info(" Inside processMessage === test 1");
+    log.info(" Inside processMessage === test 1");
     log.info(bucketNotification.getBucket());
     log.info(bucketNotification.getName());
 
     fileReaderService.loginIntoGcpStorage(
         bucketNotification.getBucket(), bucketNotification.getName());
-    }
+  }
 }

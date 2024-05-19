@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api")
 public class SprintinController {
 
-    private final FileReaderService fileReaderService;
+  private final FileReaderService fileReaderService;
 
-    @GetMapping("/test")
-    void invokeSprintIn() {
+  @GetMapping("/test")
+  void invokeSprintIn() {
 
-        log.info("Inside controller");
+    log.info("Inside controller");
     fileReaderService.loginIntoGcpStorage("", "");
-    }
+  }
 }

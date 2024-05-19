@@ -1,3 +1,36 @@
 sprintin:
   bucketname: my-test-bucketx
   subscriptionName: SUB_SPRINTIN_MESSAGE
+
+spring:
+  cloud:
+    gcp:
+      #    credentials:
+      #      encoded-key: ${GCP_APPLICATION_CREDENTIALS_BASE64}
+      sql:
+        enabled: false
+        instance-connection-name: ${DB_INSTANCE_NAME}
+        database-name: ${DATABASE_NAME}
+    #      credentials:
+    #        encoded-key: ${GCP_APPLICATION_CREDENTIALS_BASE64}
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+  #    hikari:
+  #      schema: ${DB_SCHEMA}
+  #      maximumPoolSize: 10
+  #      minimIdle: 3
+  #      idleTimeout: 300000
+  #      username: ${DB_USERNAME}
+  #      password: ${DB_PASSWORD}
+  jpa:
+    database: POSTGRESQL
+    show-sql: true
+    properties:
+      hibernate:
+        default_schema: ${DB_SCHEMA}
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+

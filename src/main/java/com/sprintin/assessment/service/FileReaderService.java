@@ -4,10 +4,14 @@ import com.google.cloud.ReadChannel;
 import com.google.cloud.storage.Blob;
 import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.StorageOptions;
+import com.sprintin.assessment.repository.FileRepository;
+import com.sprintin.assessment.repository.entity.SprintinFile;
+import jakarta.transaction.Transactional;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.channels.Channels;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -17,6 +21,9 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class FileReaderService {
 
+  private final FileRepository fileRepository;
+
+  @Transactional
   public void loginIntoGcpStorage(final String bucketName, final String fileName) {
 
     final Storage storage = StorageOptions.getDefaultInstance().getService();
@@ -26,14 +33,27 @@ public class FileReaderService {
     try (final ReadChannel readChannel = blob.reader();
         final BufferedReader reader =
             new BufferedReader(Channels.newReader(readChannel, StandardCharsets.UTF_8))) {
-      String line = reader.readLine();
+      //  String line = reader.readLine();
 
-      while (line != null) {
-        log.info("line ->{}", line);
-        // read next line
-        line = reader.readLine();
-      }
+      log.info("file content->> {}", reader.toString());
+
+      SprintinFile sprintinFileEntity =
+          SprintinFile.builder()
+              .fileName(fileName)
+              .fileContent(reader.toString())
+              .fileSize("2mb")
+              .bucketName(bucketName)
+              .createdDt(LocalDateTime.now())
+              .build();
+      fileRepository.save(sprintinFileEntity);
+      //      while (line != null) {
+      //        log.info("line ->{}", line);
+      //        // read next line
+      //        line = reader.readLine();
+      //      }
     } catch (final IOException e) {
+      log.error("IOException Occurred{}", e.getMessage());
+    } catch (final Exception e) {
       log.error("Exception Occurred{}", e.getMessage());
     }
   }

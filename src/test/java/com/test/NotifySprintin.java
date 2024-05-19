@@ -7,7 +7,6 @@ import com.google.protobuf.ByteString;
 import com.google.pubsub.v1.ProjectTopicName;
 import com.google.pubsub.v1.PubsubMessage;
 import io.cloudevents.CloudEvent;
-
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.ExecutionException;

@@ -16,20 +16,18 @@ import org.springframework.stereotype.Component;
 @Component
 public class PubSubConfig {
 
-    private final PubSubTemplate pubSubTemplate;
+  private final PubSubTemplate pubSubTemplate;
 
+  private final Set<AbstractBasePubSubConsumer<?>> pubSubConsumers;
 
-    private final Set<AbstractBasePubSubConsumer<?>> pubSubConsumers;
-
-    @EventListener(ApplicationReadyEvent.class)
-    public void handleSubscriptions() {
+  @EventListener(ApplicationReadyEvent.class)
+  public void handleSubscriptions() {
     final ExecutorService executorService = Executors.newFixedThreadPool(2);
-        pubSubTemplate.getPubSubSubscriberTemplate().setAsyncPullExecutor(executorService);
-        pubSubConsumers.forEach(this::subscribe);
-    }
+    pubSubTemplate.getPubSubSubscriberTemplate().setAsyncPullExecutor(executorService);
+    pubSubConsumers.forEach(this::subscribe);
+  }
 
   public void subscribe(final AbstractBasePubSubConsumer<?> consumer) {
-        pubSubTemplate.subscribe(consumer.getSubscription(), consumer.consumer());
-    }
-
+    pubSubTemplate.subscribe(consumer.getSubscription(), consumer.consumer());
+  }
 }
