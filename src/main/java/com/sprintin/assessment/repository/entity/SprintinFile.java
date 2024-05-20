@@ -6,11 +6,13 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
 @Builder
 @Table(name = "sprint_files")
 public class SprintinFile implements Serializable {

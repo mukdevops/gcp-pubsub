@@ -37,12 +37,7 @@ public class BucketNotificationPubSubConsumer
 
   @Override
   public void processMessage(final BucketNotification bucketNotification) {
-
-    log.info(" Inside processMessage === test 1");
-    log.info(bucketNotification.getBucket());
-    log.info(bucketNotification.getName());
-
     fileReaderService.loginIntoGcpStorage(
-        bucketNotification.getBucket(), bucketNotification.getName());
+        bucketNotification.getBucket(), bucketNotification.getName(), bucketNotification.getSize());
   }
 }

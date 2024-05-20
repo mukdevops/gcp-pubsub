@@ -29,7 +29,6 @@ public abstract class AbstractBasePubSubConsumer<T> {
 
   public void consume(final BasicAcknowledgeablePubsubMessage basicAcknowledgeablePubsubMessage) {
 
-    log.info(" inside consume method ===== ");
     boolean ackMessage = true;
 
     try {
@@ -39,13 +38,12 @@ public abstract class AbstractBasePubSubConsumer<T> {
               getMessageClass());
       processMessage(message);
     } catch (final JsonProcessingException jsonProcessingException) {
-      log.error("Failed to parse JSON" + jsonProcessingException.getMessage());
+      log.error("Failed to parse JSON {}", jsonProcessingException.getMessage());
     } catch (final ConstraintViolationException constraintViolationException) {
-      log.error("Invalid Pubsub entry" + constraintViolationException.getMessage());
+      log.error("Invalid Pubsub entry {}", constraintViolationException.getMessage());
     } catch (final Exception exception) {
       ackMessage = false;
-      log.error("exception occurred while consuming Pub/Sub message");
-      exception.printStackTrace();
+      log.error("exception occurred while consuming Pub/Sub message {}", exception.getMessage());
     } finally {
       determineAckMessageResponse(basicAcknowledgeablePubsubMessage, ackMessage);
     }

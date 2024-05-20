@@ -1,7 +1,6 @@
 sprintin:
-  bucketname: my-test-bucketx
-  subscriptionName: SUB_SPRINTIN_MESSAGE
-
+  bucket-name: ${BUCKET_NAME}
+  subscription-name: ${GCP_SUBSCRIPTION_NAME}
 spring:
   cloud:
     gcp:
@@ -14,7 +13,7 @@ spring:
     #      credentials:
     #        encoded-key: ${GCP_APPLICATION_CREDENTIALS_BASE64}
   datasource:
-    driverClassName: org.postgresql.Driver
+    driver-class-name: org.postgresql.Driver
     url: ${DB_URL}
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
